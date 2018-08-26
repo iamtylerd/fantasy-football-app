@@ -1,0 +1,19 @@
+.weekly-projections-container {
+  width: 80%;
+  height: 500px;
+}
+
+.week-select {
+  width: 15%;
+  margin-left: 1rem;
+}
+
+.position-select {
+  width: 15%;
+  margin-left: 1rem;
+}
+
+.select-container {
+  display: flex;
+  flex-direction: row;
+}
