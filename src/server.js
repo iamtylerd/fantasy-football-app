@@ -32,6 +32,13 @@ app.get('/api/weekly-projections-query', (req, res, err) => {
         })
 })
 
+app.get("/api/weather", (req, res, err) => {
+    axios.get(`https://www.fantasyfootballnerd.com/service/weather/json/${CONSTANTS.API_KEY}`)
+        .then((data) => {
+            res.send(circularJSON.stringify(data.data))
+        })
+})
+
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
