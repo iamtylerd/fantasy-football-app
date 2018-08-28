@@ -1,0 +1,12 @@
+.weather-cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.weather-cards > div {
+    width: 25%;
+    margin: 15px;
+    height: 10rem;
+}

@@ -110,7 +110,7 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <h1>Weekly Projections</h1>
+        <h1 className="header-weekly">Weekly Projections</h1>
           <div className="select-container">
             <div className="week-select">
               <label>
