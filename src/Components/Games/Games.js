@@ -4,26 +4,48 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Fade from 'react-reveal/Fade';
-import "./Weather.css"
 
-class Weather extends Component {
+import "./Games.css"
+
+class Games extends Component {
     constructor(props) {
         super(props)
         this.state = {
             games: []
         }
+        this.getScore = this.getScore.bind(this)
     }
 
     componentDidMount() {
-        axios.get("http://localhost:5000/api/weather", {
+        axios.all([this.getWeather(), this.getScores()]).then((data) => {
+            console.log(data[1].data)
+            this.setState({
+                games: data[0].data.Games,
+                scores: data[1].data
+            })
+        })
+    }
+
+    getScores(){
+        return axios.get("http://localhost:5000/api/get-current-scores", {
             headers: {
                 "Access-Control-Allow-Origin": "*"
             }
-        }).then((data) => {
-            this.setState({
-                games: data.data.Games
-            })
         })
+    }
+
+    getWeather(){
+        return axios.get("http://localhost:5000/api/weather", {
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            }
+        })
+    }
+
+    getScore(a, h) {
+        for(let s in this.state.scores) {
+            console.log(this.state.scores[s].away.abbr)
+        }
     }
 
     buildWeather() {
@@ -38,17 +60,23 @@ class Weather extends Component {
                 time: this.state.games[g].gameTimeET,
                 forecast: this.state.games[g].forecast,
                 tvStation: this.state.games[g].tvStation,
-                dome: this.state.games[g].isDome === "1" ? true : false
+                dome: this.state.games[g].isDome === "1" ? this.state.games[g].domeImg : false
             }
             games.push(formatted)
         }
         return games
     }
 
+    showDome(e) {
+        return (
+            <img src={e}  alt="Dome" title="Dome"/>
+        )
+    }
+
     render() {
         return (
             <div className="weather-container">
-                <h1>Weather</h1>
+                <h1>Games this week</h1>
                     <Fade cascade>
                         <div className="weather-cards">
                         {
@@ -65,11 +93,14 @@ class Weather extends Component {
                                             <Typography variant="headline" component="h4">
                                                 Forecast: {game.forecast}
                                             </Typography>
+                                            <Typography variant="headline" component="h4">
+                                                Score: {this.getScore(game.away, game.home)}
+                                            </Typography>
                                             <Typography color="textSecondary">
                                                 {game.tvStation}
                                             </Typography>
                                             <Typography align="right" color="textSecondary">
-                                                {game.dome === true ? "*Dome" : null}
+                                                {game.dome !== false ? this.showDome(game.dome) : null}
                                             </Typography>
                                         </CardContent>
                                     </Card>
@@ -83,4 +114,4 @@ class Weather extends Component {
     }
 }
 
-export default Weather
+export default Games
