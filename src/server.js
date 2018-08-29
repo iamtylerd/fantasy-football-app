@@ -39,6 +39,13 @@ app.get("/api/weather", (req, res, err) => {
         })
 })
 
+app.get("/api/get-current-scores", (req, res, err) => {
+    axios.get("http://www.nfl.com/liveupdate/scores/scores.json")
+        .then((data) => {
+            res.send(circularJSON.stringify(data.data))
+        })
+})
+
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });

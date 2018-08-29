@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import App from '../../App';
-import Weather from "../Weather/Weather";
+import Games from "../Games/Games";
 
 // Each logical "route" has two components, one for
 // the sidebar and one for the main area. We want to
@@ -14,9 +14,9 @@ const routes = [
     sidebar: () => <div>home!</div>,
     main: () => <App />
   }, {
-      path: "/weather",
+      path: "/games",
       exact: true,
-      main: () => <Weather />
+      main: () => <Games />
   }
 ];
 
@@ -35,7 +35,7 @@ const Menu = () => (
             <Link to="/">Weekly Projections</Link>
           </li>
           <li>
-            <Link to="/weather">Weather</Link>
+            <Link to="/Games">Games</Link>
           </li>
         </ul>
 
