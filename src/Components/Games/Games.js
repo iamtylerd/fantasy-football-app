@@ -13,12 +13,10 @@ class Games extends Component {
         this.state = {
             games: []
         }
-        this.getScore = this.getScore.bind(this)
     }
 
     componentDidMount() {
         axios.all([this.getWeather(), this.getScores()]).then((data) => {
-            console.log(data[1].data)
             this.setState({
                 games: data[0].data.Games,
                 scores: data[1].data
@@ -42,11 +40,6 @@ class Games extends Component {
         })
     }
 
-    getScore(a, h) {
-        for(let s in this.state.scores) {
-            console.log(this.state.scores[s].away.abbr)
-        }
-    }
 
     buildWeather() {
         let games = []
@@ -92,9 +85,6 @@ class Games extends Component {
                                             </Typography>
                                             <Typography variant="headline" component="h4">
                                                 Forecast: {game.forecast}
-                                            </Typography>
-                                            <Typography variant="headline" component="h4">
-                                                Score: {this.getScore(game.away, game.home)}
                                             </Typography>
                                             <Typography color="textSecondary">
                                                 {game.tvStation}

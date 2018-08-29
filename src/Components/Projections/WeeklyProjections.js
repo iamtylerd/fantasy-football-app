@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import './App.css';
+import './WeeklyProjections.css';
 import axios from 'axios';
 import Select from 'react-select'
 import {Bar} from 'react-chartjs-2';
 
 
-class App extends Component {
+class WeeklyProjections extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -109,7 +109,7 @@ class App extends Component {
       }
     }
     return (
-      <div className="App">
+      <div className="WeeklyProjections">
         <h1 className="header-weekly">Weekly Projections</h1>
           <div className="select-container">
             <div className="week-select">
@@ -152,4 +152,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default WeeklyProjections;

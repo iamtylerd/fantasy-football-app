@@ -1,7 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import App from '../../App';
+import WeeklyProjections from '../Projections/WeeklyProjections';
+import "./Menu.scss";
 import Games from "../Games/Games";
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
 
 // Each logical "route" has two components, one for
 // the sidebar and one for the main area. We want to
@@ -11,8 +16,7 @@ const routes = [
   {
     path: "/",
     exact: true,
-    sidebar: () => <div>home!</div>,
-    main: () => <App />
+    main: () => <WeeklyProjections />
   }, {
       path: "/games",
       exact: true,
@@ -26,18 +30,25 @@ const Menu = () => (
       <div
         style={{
           width: "15%",
-          minHeight: "100%",
+          height: "100%",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          zIndex: 1,
+          overflowX: "hidden",
           background: "#f0f0f0"
         }}
       >
-        <ul style={{ listStyleType: "none", padding: 0 }}>
-          <li>
-            <Link to="/">Weekly Projections</Link>
-          </li>
-          <li>
-            <Link to="/Games">Games</Link>
-          </li>
-        </ul>
+        <h3 className="menu-header">Fantasy Updates</h3>
+        <List component="nav" style={{ listStyleType: "none", padding: 0 }}>
+          <ListItem button>
+            <Link to="/"><ListItemText primary="Weekly Projections"></ListItemText></Link>
+          </ListItem>
+          <Divider light />
+          <ListItem button>
+            <Link to="/games"><ListItemText primary="Games"></ListItemText></Link>
+          </ListItem>
+        </List>
 
         {routes.map((route, index) => (
           // You can render a <Route> in as many places
@@ -56,7 +67,7 @@ const Menu = () => (
         ))}
       </div>
 
-      <div style={{ flex: 1 }}>
+      <div style={{ flex: 1, marginLeft: "15%" }}>
         {routes.map((route, index) => (
           // Render more <Route>s with the same paths as
           // above, but different components this time.
