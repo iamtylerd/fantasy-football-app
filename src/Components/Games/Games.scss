@@ -1,0 +1,25 @@
+/* COLORS */
+
+/* RGB */
+$color1: rgba(0, 0, 0, 1);
+$color2: rgba(45, 48, 71, 1);
+$color3: rgba(65, 157, 120, 1);
+$color4: rgba(224, 164, 88, 1);
+$color5: rgba(87, 90, 75, 1); 
+
+.games-header {
+    color: $color2;
+}
+
+.weather-cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.weather-cards > div {
+    width: 25%;
+    margin: 15px;
+    height: 10rem;
+}

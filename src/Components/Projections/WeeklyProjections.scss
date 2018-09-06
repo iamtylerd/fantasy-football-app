@@ -1,3 +1,10 @@
+/* RGB */
+$color1: rgba(0, 0, 0, 1);
+$color2: rgba(45, 48, 71, 1);
+$color3: rgba(65, 157, 120, 1);
+$color4: rgba(224, 164, 88, 1);
+$color5: rgba(87, 90, 75, 1); 
+
 .weekly-projections-container {
   width: 80%;
   height: 500px;
@@ -19,5 +26,13 @@
 }
 
 .header-weekly {
-  margin-top: 0;
+  color: $color2;
+}
+
+.bar-chart {
+  div {
+    canvas {
+      max-width: 100%;
+    }
+  }
 }

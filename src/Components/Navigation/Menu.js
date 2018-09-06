@@ -1,12 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import WeeklyProjections from '../Projections/WeeklyProjections';
-import "./Menu.scss";
 import Games from "../Games/Games";
+import WeeklyStats from "../Stats/WeeklyStats";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
+import "./Menu.scss";
 
 // Each logical "route" has two components, one for
 // the sidebar and one for the main area. We want to
@@ -17,7 +18,13 @@ const routes = [
     path: "/",
     exact: true,
     main: () => <WeeklyProjections />
-  }, {
+  },
+  {
+    path: "/weekly-stats",
+    exact: true,
+    main: () => <WeeklyStats />
+  },  
+  {
       path: "/games",
       exact: true,
       main: () => <Games />
@@ -28,6 +35,7 @@ const Menu = () => (
   <Router>
     <div style={{ display: "flex" }}>
       <div
+        className="menu-container"
         style={{
           width: "15%",
           height: "100%",
@@ -41,13 +49,23 @@ const Menu = () => (
       >
         <h3 className="menu-header">Fantasy Updates</h3>
         <List component="nav" style={{ listStyleType: "none", padding: 0 }}>
-          <ListItem button>
-            <Link to="/"><ListItemText primary="Weekly Projections"></ListItemText></Link>
-          </ListItem>
+          <Link to="/">
+            <ListItem button>
+              <ListItemText primary="Weekly Projections"></ListItemText>
+            </ListItem>
+          </Link>
           <Divider light />
-          <ListItem button>
-            <Link to="/games"><ListItemText primary="Games"></ListItemText></Link>
-          </ListItem>
+          <Link to="/weekly-stats">
+            <ListItem button>
+              <ListItemText primary="Weekly Stats"></ListItemText>
+            </ListItem>
+          </Link>
+          <Divider light />
+          <Link to="/games">
+            <ListItem button>
+              <ListItemText primary="Games"></ListItemText>
+            </ListItem>
+          </Link>
         </List>
 
         {routes.map((route, index) => (

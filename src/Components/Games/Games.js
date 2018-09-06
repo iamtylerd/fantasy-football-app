@@ -5,7 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Fade from 'react-reveal/Fade';
 
-import "./Games.css"
+import "./Games.scss"
 
 class Games extends Component {
     constructor(props) {
@@ -69,7 +69,7 @@ class Games extends Component {
     render() {
         return (
             <div className="weather-container">
-                <h1>Games this week</h1>
+                <h1 className="games-header">Games this week</h1>
                     <Fade cascade>
                         <div className="weather-cards">
                         {
