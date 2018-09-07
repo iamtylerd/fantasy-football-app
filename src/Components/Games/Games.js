@@ -17,6 +17,7 @@ class Games extends Component {
 
     componentDidMount() {
         axios.all([this.getWeather(), this.getScores()]).then((data) => {
+            this.addScorestoGames(data[0].data.Games, data[1].data)
             this.setState({
                 games: data[0].data.Games,
                 scores: data[1].data
@@ -40,6 +41,15 @@ class Games extends Component {
         })
     }
 
+    addScorestoGames(games, scores) {
+        for (let i in scores) {
+            let homeTeam = scores[i].home.abbr
+            if(games.hasOwnProperty(homeTeam)) {
+                //myString is a key on the Object, but not its prototype.
+                console.log(games[homeTeam], scores[i]);
+            }
+        }
+    }
 
     buildWeather() {
         let games = []
@@ -83,7 +93,7 @@ class Games extends Component {
                                             <Typography>
                                                 {game.date} @ {game.time} EST
                                             </Typography>
-                                            <Typography variant="headline" component="h4">
+                                            <Typography variant="subheading">
                                                 Forecast: {game.forecast}
                                             </Typography>
                                             <Typography color="textSecondary">

@@ -8,6 +8,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import "./Menu.scss";
+import GoogleLoginClient from "../Login/GoogleLoginClient";
 
 // Each logical "route" has two components, one for
 // the sidebar and one for the main area. We want to
@@ -67,6 +68,7 @@ const Menu = () => (
             </ListItem>
           </Link>
         </List>
+        <GoogleLoginClient />
 
         {routes.map((route, index) => (
           // You can render a <Route> in as many places
