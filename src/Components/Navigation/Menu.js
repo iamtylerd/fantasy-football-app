@@ -48,7 +48,9 @@ const Menu = () => (
           background: "#f0f0f0"
         }}
       >
-        <h3 className="menu-header">Fantasy Updates</h3>
+        <Link to="/" style={{display: "flex", justifyContent: "center"}}>
+          <h3 className="menu-header">FFI</h3>
+        </Link>
         <List component="nav" style={{ listStyleType: "none", padding: 0 }}>
           <Link to="/">
             <ListItem button>

@@ -21,7 +21,11 @@ $color5: rgba(87, 90, 75, 1);
 .weather-cards > div {
     width: 25%;
     margin: 15px;
-    height: 10rem;
+    height: 12rem;
+}
+
+.isDome {
+    width: 90%;
 }
 
 @media (max-width: 1100px) {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { GoogleLogin } from 'react-google-login';
 
 
 
@@ -42,6 +42,7 @@ class GoogleLoginClient extends Component {
                     <button onClick={this.logout}>Logout?</button>
                 </div> : 
                 <GoogleLogin
+                style={{width: "75%"}}
                 clientId="853351844639-45k4smk77oc6onlpdqqkpstn9rh2hl3h.apps.googleusercontent.com"
                 onSuccess={this.responseGoogle}
                 onFailure={this.responseGoogle}

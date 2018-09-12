@@ -3,6 +3,7 @@ import './WeeklyProjections.scss';
 import axios from 'axios';
 import Select from 'react-select'
 import {Bar} from 'react-chartjs-2';
+import Button from '@material-ui/core/Button';
 
 
 class WeeklyProjections extends Component {
@@ -142,7 +143,7 @@ class WeeklyProjections extends Component {
                 }
               />
             </div>
-              <button onClick={this.onSubmit}>Search</button>
+              <Button className="search-button" variant="contained" onClick={this.onSubmit}>Search</Button>
           </div>
         <div className="bar-chart">
           <Bar data={this.state.data} options={options}/>

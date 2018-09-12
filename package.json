@@ -38,6 +38,8 @@
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
+    "moment": "^2.22.2",
+    "mysportsfeeds-node": "^2.0.1",
     "node-sass": "^4.9.3",
     "nodemon": "^1.18.3",
     "object-assign": "4.1.1",

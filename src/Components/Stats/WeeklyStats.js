@@ -26,7 +26,14 @@ class WeeklyStats extends Component {
   }
 
   componentDidMount() {
-    
+    axios.get('http://localhost:5000/api/weekly-stats', {
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    })
+      .then((data) => {
+        console.log(data)
+      })
   }
 
 

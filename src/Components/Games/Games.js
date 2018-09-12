@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import moment from "moment";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -16,13 +17,14 @@ class Games extends Component {
     }
 
     componentDidMount() {
-        axios.all([this.getWeather(), this.getScores()]).then((data) => {
-            this.addScorestoGames(data[0].data.Games, data[1].data)
-            this.setState({
-                games: data[0].data.Games,
-                scores: data[1].data
+        axios.all([this.getScores(), this.getWeather()])
+            .then((data) => {
+                this.setState({
+                    games: this.buildWeather(data[0].data, data[1].data.Games),
+                    weather: data[1].data.Games
+                })
+                this.buildWeather()
             })
-        })
     }
 
     getScores(){
@@ -34,38 +36,25 @@ class Games extends Component {
     }
 
     getWeather(){
-        return axios.get("http://localhost:5000/api/weather", {
+        return axios.get("http://localhost:5000/api/get-weather", {
             headers: {
                 "Access-Control-Allow-Origin": "*"
             }
         })
     }
 
-    addScorestoGames(games, scores) {
-        for (let i in scores) {
-            let homeTeam = scores[i].home.abbr
-            if(games.hasOwnProperty(homeTeam)) {
-                //myString is a key on the Object, but not its prototype.
-                console.log(games[homeTeam], scores[i]);
-            }
-        }
-    }
 
-    buildWeather() {
-        let games = []
-        for(let g in this.state.games) {
-            let date =this.state.games[g].gameDate.split("-")
-            let formattedDate = `${date[1]}-${date[2]}-${date[0]}`
-            let formatted = {
-                away: this.state.games[g].awayTeam,
-                home: g,
-                date: formattedDate,
-                time: this.state.games[g].gameTimeET,
-                forecast: this.state.games[g].forecast,
-                tvStation: this.state.games[g].tvStation,
-                dome: this.state.games[g].isDome === "1" ? this.state.games[g].domeImg : false
+    buildWeather(games, weather) {
+        for (let i in games) {
+            let homeTeam = games[i].schedule.homeTeam.abbreviation.substring(0,2)
+            for (let k in weather) {
+                if(weather[k].homeTeam.substring(0,2) == homeTeam) {
+                    console.log(weather[k].homeTeam.substring(0,2), homeTeam)
+                    games[i]["forecast"] = weather[k].forecast
+                    games[i]["dome"] = weather[k].isDome === "1" ? weather[k].domeImg : false
+                    games[i]["tvStation"] = weather[k].tvStation
+                }
             }
-            games.push(formatted)
         }
         return games
     }
@@ -76,30 +65,38 @@ class Games extends Component {
         )
     }
 
+
     render() {
+        console.log(this.state)
         return (
             <div className="weather-container">
                 <h1 className="games-header">Games this week</h1>
                     <Fade cascade>
                         <div className="weather-cards">
                         {
-                            this.buildWeather().map((game, index) => {
+                            this.state.games.map((game, index) => {
                                 return (
                                     <Card className="weather-card" key={index}>
                                         <CardContent>
                                             <Typography variant="headline" component="h2" align="center">
-                                                {game.away} @ {game.home}
+                                                {game.schedule.awayTeam.abbreviation} @ {game.schedule.homeTeam.abbreviation}
+                                            </Typography>
+                                            {game.schedule.playedStatus != "UNPLAYED" && <Typography variant="headline" component="h2" align="center">
+                                                {game.score.awayScoreTotal} - {game.score.homeScoreTotal} | {game.score.currentQuarter === null ? "Final" : game.score.currentQuarter}
+                                            </Typography>}
+                                            {["1", "2", "3", "4"].includes(game.score.currentQuarter) && <Typography variant="headline" align="center">
+                                                {game.score.currentQuarterSecondsRemaining}
+                                            </Typography>}
+                                            <Typography>
+                                                {moment(game.schedule.startTime).format("MM-DD-YY @ hA")}
                                             </Typography>
                                             <Typography>
-                                                {game.date} @ {game.time} EST
-                                            </Typography>
-                                            <Typography variant="subheading">
-                                                Forecast: {game.forecast}
-                                            </Typography>
-                                            <Typography color="textSecondary">
                                                 {game.tvStation}
                                             </Typography>
-                                            <Typography align="right" color="textSecondary">
+                                            <Typography>
+                                                Forecast: {game.forecast}
+                                            </Typography>
+                                            <Typography align="right" color="textSecondary" className="isDome">
                                                 {game.dome !== false ? this.showDome(game.dome) : null}
                                             </Typography>
                                         </CardContent>
